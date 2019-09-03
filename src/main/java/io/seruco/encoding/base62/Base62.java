@@ -123,7 +123,7 @@ public class Base62 {
         }
 
         // pad output with zeroes corresponding to the number of leading zeroes in the message
-        for (int i = 0; i < message.length - 1 && message[i] == 0; i++) {
+        for (int i = out.size(); i < estimatedLength; i++) {
             out.write(0);
         }
 
@@ -134,7 +134,7 @@ public class Base62 {
      * Estimates the length of the output in bytes.
      */
     private int estimateOutputLength(int inputLength, int sourceBase, int targetBase) {
-        return (int) Math.ceil((Math.log(sourceBase) / Math.log(targetBase)) * inputLength);
+        return (int) Math.floor((Math.log(sourceBase) / Math.log(targetBase)) * inputLength);
     }
 
     /**
